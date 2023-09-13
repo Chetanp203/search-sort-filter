@@ -8,14 +8,14 @@ export const allEvents = async (req, res) => {
     if (name) {
       query.name = { $regex: name, $options: 'i' }
     }
-    const sortPrefix = sort[0] == '-' ? "-" : "";
+    //const sortPrefix = sort[0] == '-' ? "-" : "";
     const sortField = sort.replace(/^-/, "");
     const sortOption = { [sortField]: `${order}` }
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const limitValue = parseInt(limit);
 
-    const events = await EventModel.find(query).sort(sortOption).skip(skip).limit(limitValue).lean();
+    const events = await EventModel.find(query).populate("creator").sort(sortOption).skip(skip).limit(limitValue).lean();
 
     return res.status(200).json({success:true,events})
 

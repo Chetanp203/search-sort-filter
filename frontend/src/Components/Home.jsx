@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from './Context/AuthContext';
-import { useNavigate } from 'react-router';
 import api from './ApiConfig';
 
 const Home = () => {
@@ -12,8 +11,6 @@ const Home = () => {
   const [allEvents, setAllEvents] = useState([]);
 
   console.log(allEvents);
-
-  const router = useNavigate();
 
   useEffect(() => {
     async function totalEvents() {
@@ -54,9 +51,10 @@ const Home = () => {
           }}
         >
           {allEvents.map((event) => (
-            <div  key={event._id} style={{width:"18%",border:"1px solid #ccc",margin:"10px",borderRadius:"10px",cursor:"pointer",padding:"20px"}}>
-              <h2>Title :-{event.name}</h2>
+            <div  key={event._id} style={{width:"18%",border:"1px solid #ccc",margin:"10px",borderRadius:"10px",cursor:"pointer",padding:"5px"}}>
+              <h2>{event.name}</h2>
               <h4>Date -:{event.date}</h4>
+              <h4>Creator -:{event.creator.name}</h4>
             </div>
           ))}
         </div>
